@@ -10,12 +10,15 @@ Linear search is an algorithm that sequentially checks each element of a list un
 * Worst Case: O(n) - If the target element is at the end of the list or not present in the list, linear search would have to iterate through all elements.
 #### Linear Search Space Complexity :
 * O(1) : Because it only requires a constant amount of additional space for storing variables like indices and loop counters. It does not require extra space proportional to the input size.
+
+#### Linear Search Use Case :
+- Unsorted data
+- Small datasets
+- Sequential search
+- Finding the first occurrence
+
+##### Example  :
 ```c++
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
 // Function to perform linear search
 int linearSearch(const vector<int>& arr, int target) {
     // Iterate through each element in the array
@@ -28,27 +31,6 @@ int linearSearch(const vector<int>& arr, int target) {
     // If the target is not found, return -1
     return -1;
 }
-
-int main() {
-    // Sample array to search in
-    vector<int> data = {1, 3, 5, 7, 9, 11};
-
-    // Target value to search for
-    int target = 7;
-
-    // Perform linear search
-    int result = linearSearch(data, target);
-
-    // Output the result
-    if (result != -1) {
-        cout << "Element found at index: " << result << endl;
-    } else {
-        cout << "Element not found in the array." << endl;
-    }
-
-    return 0;
-}
-
 ```
 
 ### Binary Search :
@@ -62,11 +44,10 @@ Dividing the search interval in half, comparing the target value to the middle e
 #### Binary Search Space Complexity :
 * O(1) : Because it only requires a constant amount of additional space for storing variables like indices and midpoints. It does not require extra space proportional to the input size.
 
+#### Binary Search Use Case :
+* Searching sorted arrays
+##### Example :
 ```c++
-// Find an element index in the sorted array :
-#include <iostream>
-using namespace std;
-
 // Finding the key index in the sorted array
 int findElementInSortedArray(int arr[] , int size , int key){
     int start = 0;
@@ -95,17 +76,6 @@ int findElementInSortedArray(int arr[] , int size , int key){
     }
     return -1;
 }
-
-int main()
-{
-    int arr[] = {1, 2, 5, 8, 9, 12, 15};
-    int size = sizeof(arr)/sizeof(arr[0]);
-
-    int check = findElementInSortedArray(arr , size , 15);
-    cout << check << endl;
-    
-    return 0;
-}
 ```
 
 ## Sorting :
@@ -119,57 +89,75 @@ Selection sort is a simple comparison-based sorting algorithm that repeatedly se
 
 #### Selection Sort Space Complexity :
 * O(1)
+
+#### Selection Sort Use Case :
+* Small Dataset
+##### Example :
 ```c++
-#include <iostream>
-#include <vector>
-#include <algorithm>
+void selectionSort(vector<int>& arr, int n)
+{   
+    for(int i = 0; i < (n-1); i++){
+        int minIndex = i;
 
-using namespace std;
-
-// Function to find the index of the minimum element in a subarray
-int findMinIndex(const vector<int>& arr, int start, int end) {
-    int minIndex = start;
-    for (int i = start + 1; i < end; ++i) {
-        if (arr[i] < arr[minIndex]) {
-            minIndex = i;
+        for(int j = i+1; j < n ; j++){
+            if(arr[j] < arr[minIndex]){
+                minIndex = j;
+            }
         }
+        swap(arr[minIndex] , arr[i]);
     }
-    return minIndex;
-}
-
-// Function to perform selection sort on the array
-void selectionSort(vector<int>& arr, int n) {
-    for (int i = 0; i < n - 1; ++i) {
-        // Find the index of the minimum element in the remaining unsorted array
-        int minIndex = findMinIndex(arr, i, n);
-        // Swap the found minimum element with the first element of the unsorted part
-        swap(arr[minIndex], arr[i]);
-    }
-}
-
-int main() {
-    // Initialize the array
-    vector<int> arr = {64, 25, 12, 22, 11};
-    int n = arr.size();
-    
-    // Print the original array
-    cout << "Original array: ";
-    for (int i = 0; i < n; ++i) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-
-    // Sort the array using selection sort
-    selectionSort(arr, n);
-
-    // Print the sorted array
-    cout << "Sorted array: ";
-    for (int i = 0; i < n; ++i) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-
-    return 0;
 }
 ```
 
+### Bubble Sort :
+A simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
+#### Bubble Sort Time Complexity :
+* Best Case: O(n) - If the list is already sorted, bubble sort will make only one pass through the list to check that it's sorted.
+* Average Case: O(n^2) - In the average case, bubble sort requires nested loops to compare and swap elements, leading to quadratic time complexity.
+* Worst Case: O(n^2) - If the list is sorted in reverse order, bubble sort will require the maximum number of comparisons and swaps.
+
+#### Bubble Sort Space Complexity :
+*  O(1) : Because it only requires a constant amount of additional space for storing variables like loop counters and temporary variables for swaps. It does not require extra space proportional to the input size.
+
+#### Bubble Sort Use Case :
+- Small datasets
+- Basic sorting needs
+- Understanding sorting algorithms
+
+##### Example :
+```c++
+// Function to perform bubble sort
+void bubbleSort(vector<int>& arr, int n) {
+    // Traverse through all array elements
+    for(int i = 1; i < n; i++) {
+        // Last i elements are already in place, so the inner loop will run from 0 to n-i-1
+        for(int j = 0; j < n - i; j++) {
+            // Swap if the element found is greater than the next element
+            if(arr[j] > arr[j+1]) {
+                swap(arr[j], arr[j+1]);
+            }
+        }
+    }
+}
+```
+##### More Optimized Example :
+```c++
+void bubbleSort(vector<int>& arr, int n)
+{   
+    for(int i = 1; i<n ; i++){
+        // Make a bool varibale 
+        int swaped = false;
+        for(int j = 0; j < n - i ; j++){
+            if(arr[j] > arr[j+1]){
+                swap(arr[j] , arr[j+1]);
+                // If the array is already sorted. It will not be true.
+                swaped = true;
+            }
+        }
+        // If this is false. So this array is sorted.
+        if(swaped == false){
+            break;
+        }
+    }
+}
+```
