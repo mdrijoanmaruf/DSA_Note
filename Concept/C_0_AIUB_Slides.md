@@ -618,30 +618,135 @@ cout << endl;
 
 
 ## Structure :
-```c++
+* Stores multiple type data under a variable;
+* A Structure is an aggregate data type built using elements of others types.
+#### Defining structure in C++ :
 
+```c++
+// Declare a structure named "car"
+struct car {
+  string brand;
+  string model;
+  int year;
+};
+
+int main() {
+  // Create a car structure and store it in myCar1;
+  car myCar1;
+  myCar1.brand = "BMW";
+  myCar1.model = "X5";
+  myCar1.year = 1999;
+
+  // Create another car structure and store it in myCar2;
+  car myCar2;
+  myCar2.brand = "Ford";
+  myCar2.model = "Mustang";
+  myCar2.year = 1969;
+ 
+  // Print the structure members
+  cout << myCar1.brand << " " << myCar1.model << " " << myCar1.year << "\n";
+  cout << myCar2.brand << " " << myCar2.model << " " << myCar2.year << "\n";
+ 
+  return 0;
+}
 ```
 
 
+## Sorting :
+
+### Bubble Sort :
+* **Initialize**: Start from the beginning of the list.
+* **Compare**: Compare the current element with the next element.
+* **Swap**: If the current element is greater than the next element, swap them.
+* **Repeat**: Move to the next element and repeat the comparison and swap steps until the end of the list.
+* **Pass Through**: Each complete pass through the list moves the largest element to its correct position.
+* **Loop**: Repeat the process for the remaining unsorted part of the list until no swaps are needed.
+
+
 
 ```c++
-
+// Function to perform bubble sort
+void bubbleSort(vector<int>& arr, int n) {
+    // Traverse through all array elements
+    for(int i = 1; i < n; i++) {
+        // Last i elements are already in place, so the inner loop will run from 0 to n-i-1
+        for(int j = 0; j < n - i; j++) {
+            // Swap if the element found is greater than the next element
+            if(arr[j] > arr[j+1]) {
+                swap(arr[j], arr[j+1]);
+            }
+        }
+    }
+}
 ```
 
 
+### Selection Sort : 
+* **Initialize**: Start with the first element as the current minimum.
+* **Find Minimum**: Scan the rest of the list to find the actual minimum element.
+* **Swap**: Swap the found minimum element with the first element.
+* **Repeat**: Move the boundary of the sorted sublist one element to the right.
+* **Loop**: Repeat the process for the remaining unsorted part of the list
 
 ```c++
+void selectionSort(vector<int>& arr, int n)
+{   
+    for(int i = 0; i < (n-1); i++){
+        int minIndex = i;
 
+        for(int j = i+1; j < n ; j++){
+            if(arr[j] < arr[minIndex]){
+                minIndex = j;
+            }
+        }
+        swap(arr[minIndex] , arr[i]);
+    }
+}
 ```
 
 
-
+## Binary Search : 
+Dividing the search interval in half, comparing the target value to the middle element, and adjusting the interval based on the comparison.
 ```c++
+// Finding the key index in the sorted array
+int findElementInSortedArray(int arr[] , int size , int key){
+    int start = 0;
+    int end = size - 1;
+    int mid = (start + end)/2;
 
+    while (start <= end)
+    {
+        // Check the middle point is quals to key or not
+        if (arr[mid] == key)
+        {
+            return mid;
+        }
+        
+        // Moving right side
+        if (key > arr[mid])
+        {
+            start = mid + 1;
+        }
+        // Movieng Left Side
+        else if (key < arr[mid])
+        {
+            end = mid - 1;
+        }
+        mid = start + (end-start)/2;
+    }
+    return -1;
+}
 ```
 
 
+## Linked List :
+* Linked list is a data structure consisting of a group of memory space which together represent a list.(sequence of data).
+* Each data is stored in a separate memory space/block(call cell/node).
+* Each memory block contains the data along with link/location/address to the memory location for the next data in the list.
+* A sequence of data can also be represented as an array. But in an array, data are stored consecutively in the memory. But , **Linkded list data are not stored consecutively in the mrmory**.
+![alt text](image.png)
 
+#### Application of linked list : 
 ```c++
 
 ```
