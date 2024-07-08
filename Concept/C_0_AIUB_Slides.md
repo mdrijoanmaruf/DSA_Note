@@ -743,6 +743,7 @@ int findElementInSortedArray(int arr[] , int size , int key){
 * Linked list is a data structure consisting of a group of memory space which together represent a list.(sequence of data).
 * Each data is stored in a separate memory space/block(call cell/node).
 * Each memory block contains the data along with link/location/address to the memory location for the next data in the list.
+![alt text](image-1.png)
 * A sequence of data can also be represented as an array. But in an array, data are stored consecutively in the memory. But , **Linkded list data are not stored consecutively in the mrmory**.
 ![alt text](image.png)
 
