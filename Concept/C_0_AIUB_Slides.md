@@ -1,4 +1,4 @@
-# Data Structure AIUB Slides
+# Data Structure AIUB Slides 
 ## Data & Structures :
 #### Data :
 * Row of information than can be processed to get results.
@@ -748,54 +748,246 @@ int findElementInSortedArray(int arr[] , int size , int key){
 ![alt text](image.png)
 
 #### Application of linked list : 
-```c++
+* Implementation of stacks and queues.
+* Implementation of graphs : Adjacency list representation of graphs is most popular which is uses linked list to store adjacent vertices.
+* Dynamic memory allocation : We use linked list of free blocks.
+* Maintaining directory of names
+* Performing arithemetic of polynomials by storing constants in the node of linkde list
+* Representing spares matrices.
+* Image viewer : Previous and next image are linked , hence can be accessed by next and previous button.
+* Previous and next button in web brower.
+* Music play previous and next button.
 
+```c++
+#include <iostream>
+
+using namespace std;
+
+// Definition of a Node in the linked list
+struct Node {
+    int data;  // Data part of the node
+    Node* next;  // Pointer to the next node
+};
+
+// Definition of the LinkedList structure
+struct LinkedList {
+    Node* head;  // Pointer to the head node of the list
+
+    // Constructor to initialize the list
+    LinkedList() {
+        head = nullptr;
+    }
+
+    // Function to insert a new node at the end of the list
+    void insert(int data) {
+        Node* newNode = new Node();  // Create a new node
+        newNode->data = data;  // Assign data to the new node
+        newNode->next = nullptr;  // New node will be the last node, so next is null
+
+        if (head == nullptr) {  // If the list is empty, make the new node the head
+            head = newNode;
+        } else {
+            Node* temp = head;
+            while (temp->next != nullptr) {  // Traverse to the last node
+                temp = temp->next;
+            }
+            temp->next = newNode;  // Link the new node at the end of the list
+        }
+    }
+
+    // Function to delete a node with a given value
+    void deleteNode(int key) {
+        Node* temp = head;
+        Node* prev = nullptr;
+
+        // If head node itself holds the key to be deleted
+        if (temp != nullptr && temp->data == key) {
+            head = temp->next;  // Change head to the next node
+            delete temp;  // Free the old head
+            return;
+        }
+
+        // Search for the key to be deleted, keep track of the previous node
+        while (temp != nullptr && temp->data != key) {
+            prev = temp;
+            temp = temp->next;
+        }
+
+        // If key was not present in the list
+        if (temp == nullptr) return;
+
+        // Unlink the node from the linked list
+        prev->next = temp->next;
+        delete temp;  // Free memory
+    }
+
+    // Function to display the linked list
+    void display() {
+        Node* temp = head;
+        while (temp != nullptr) {  // Traverse through the list
+            cout << temp->data << " ";  // Print the data of each node
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    LinkedList list;
+    list.insert(10);  // Insert 10
+    list.insert(20);  // Insert 20
+    list.insert(30);  // Insert 30
+    list.display();  // Output: 10 20 30
+
+    list.deleteNode(20);  // Delete 20
+    list.display();  // Output: 10 30
+
+    list.deleteNode(10);  // Delete 10
+    list.display();  // Output: 30
+
+    list.deleteNode(30);  // Delete 30
+    list.display();  // Output: (empty line)
+
+    return 0;
+}
+```
+### Linked list Traversal (Algorithm & simulation) :
+
+```
+Input: Head (the address of first node)
+Current = Head
+Step 1: if Current == NULL exit otherwise access current node (with address Current)
+Step 2: move Current to next node and go to step 1
+```
+![alt text](image-3.png)
+
+**Code :**
+```c++
+void traverse(void (*func)(int)) {
+        Node* temp = head;
+        while (temp != nullptr) {  // Traverse through the list
+            func(temp->data);  // Apply the function to the data of each node
+            temp = temp->next;
+        }
+    }
+```
+
+### Linked list Searching (Algorithm & simulation) :
+
+```
+Algorithm
+Input: Head (the address of first node)
+Curr = Head
+Step 1: if Curr == NULL print not found and exit 
+If Curr->data = item print found and exit
+Step 2: move Curr to next node and go to step 1
+```
+![alt text](image-3.png)
+**Code :**
+```c++
+// Function to search for a node with a given value
+bool search(int key) {
+    Node* current = head;
+    while (current != NULL) {  // Traverse through the list
+        if (current->data == key) {  // Check if the current node has the key
+            return true;  // Key found
+        }
+        current = current->next;  // Move to the next node
+    }
+    return false;  // Key not found
+}
+```
+
+### Linked list Insertion (Algorithm and simulation) :
+
+```
+Algorithm
+Input: 
+Head (the address of first node), 
+Node (inserting node), 
+Prev (address of previous node)
+
+Case 1: 
+if Prev != NULL then go to Case 2
+Make a link from Node to first node
+Make Node as the Head
+Exit
+
+Case 2: 
+Make a link from Node to the node next to Prev
+Make another link from Prev to Node
+```
+**Code :**
+```c++
+// Function to insert a new node at the end of the list
+void insert(int data) {
+    Node* newNode = new Node();  // Create a new node
+    newNode->data = data;  // Assign data to the new node
+    newNode->next = nullptr;  // New node will be the last node, so next is null
+
+    if (head == nullptr) {  // If the list is empty, make the new node the head
+        head = newNode;
+    } else {
+        Node* temp = head;
+        while (temp->next != nullptr) {  // Traverse to the last node
+            temp = temp->next;
+        }
+        temp->next = newNode;  // Link the new node at the end of the list
+    }
+}
+```
+![alt text](image-4.png)
+
+
+### Linked list Deletion (Algorithm and simulation) :
+```
+Input: 
+Head (the address of first node), 
+Prev (address of previous node)
+
+Case 1: 
+if Prev = NULL then go to Case 2
+Curr = Prev->next
+Make a link from Prev to the node next to Curr
+Exit
+
+Case 2: 
+Make the node next to Head as new Head
+```
+**Code :**
+```c++
+// Function to delete a node with a given value
+void deleteNode(int key) {
+    Node* temp = head;
+    Node* prev = NULL;
+
+    // If head node itself holds the key to be deleted
+    if (temp != NULL && temp->data == key) {
+        head = temp->next;  // Change head to the next node
+        delete temp;  // Free the old head
+        return;
+    }
+
+    // Search for the key to be deleted, keep track of the previous node
+    while (temp != NULL && temp->data != key) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    // If key was not present in the list
+    if (temp == NULL) return;
+
+    // Unlink the node from the linked list
+    prev->next = temp->next;
+    delete temp;  // Free memory
+}
 ```
 
 
-
-```c++
-
-```
+![alt text](image-5.png)
 
 
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
+# End of Mid Term.....
 ```c++
 
 ```
