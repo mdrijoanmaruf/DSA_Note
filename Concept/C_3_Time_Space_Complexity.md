@@ -41,7 +41,6 @@ for (int i = 0; i <= n; ++i) {
 #include <iostream>
 using namespace std;
 
-
 // Finding the key index in the sorted array
 int findElementInSortedArray(int arr[] , int size , int key){
     int start = 0;
