@@ -26,7 +26,6 @@ int factorial(int n){
 using namespace std;
 
 int powerOf(int n , int power){
-
     // Bace Case :
     if(power == 0){
         return 1;
@@ -47,7 +46,6 @@ int main() {
 }
 ```
 
- 
 **Array Sum :**
 ```c++
 #include <iostream>
