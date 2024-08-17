@@ -743,9 +743,9 @@ int findElementInSortedArray(int arr[] , int size , int key){
 * Linked list is a data structure consisting of a group of memory space which together represent a list.(sequence of data).
 * Each data is stored in a separate memory space/block(call cell/node).
 * Each memory block contains the data along with link/location/address to the memory location for the next data in the list.
-![alt text](image-1.png)
+![alt text](Img/image-1.png)
 * A sequence of data can also be represented as an array. But in an array, data are stored consecutively in the memory. But , **Linkded list data are not stored consecutively in the mrmory**.
-![alt text](image.png)
+![alt text](Img/image.png)
 
 #### Application of linked list : 
 * Implementation of stacks and queues.
@@ -859,7 +859,7 @@ Current = Head
 Step 1: if Current == NULL exit otherwise access current node (with address Current)
 Step 2: move Current to next node and go to step 1
 ```
-![alt text](image-3.png)
+![alt text](Img/image-3.png)
 
 **Code :**
 ```c++
@@ -882,7 +882,7 @@ Step 1: if Curr == NULL print not found and exit
 If Curr->data = item print found and exit
 Step 2: move Curr to next node and go to step 1
 ```
-![alt text](image-3.png)
+![alt text](Img/linked3.png)
 **Code :**
 ```c++
 // Function to search for a node with a given value
@@ -936,7 +936,7 @@ void insert(int data) {
     }
 }
 ```
-![alt text](image-4.png)
+![alt text](Img/image-4.png)
 
 
 ### Linked list Deletion (Algorithm and simulation) :
@@ -984,43 +984,7 @@ void deleteNode(int key) {
 ```
 
 
-![alt text](image-5.png)
+![alt text](Img/image-5.png)
 
 
 # End of Mid Term.....
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
