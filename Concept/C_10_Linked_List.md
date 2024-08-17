@@ -450,148 +450,107 @@ void deleteDublyLinkedList(Node* &head, int position) {
 
 
 ## 3. Circular Linked List :
+A Circular Linked List is a variation of a linked list in which the last node points back to the first node instead of pointing to nullptr. This forms a circular structure, making it possible to traverse the entire list starting from any node.
+
+**Characteristics:**
+* The last node's next pointer points to the head of the list.
+* There is no node with a nullptr next pointer.
+* It can be singly or doubly linked.
+
+**Advantages**:
+* Useful for applications where the list needs to be looped continuously (e.g., round-robin scheduling).
+* Efficient traversal from any node.
+
 ![alt text](Img/cricularLL.png)
 ```c++
+class Node {
+public:
+    int data;       // Data stored in the node
+    Node* next;     // Pointer to the next node in the linked list
 
+    // Constructor to initialize a node with the given data
+    Node(int data) {
+        this->data = data;
+        this->next = NULL; // Initialize next pointer to NULL
+    }
+
+    // Destructor to clean up memory when a node is deleted
+    ~Node() {
+        // If the next pointer is not NULL, free the memory of the next node
+        if (this->next != NULL) {
+            cout << "Memory is free for node with data " << this->data << endl;
+            delete next;    // Recursively delete the next node
+            next = NULL;    // Set the next pointer to NULL
+        }
+    }
+};
 ```
 
 
-
+### Insert data after finding given data :
 ```c++
+void insertNode(Node* &tail, int element, int data) {
+    // Check if the list is empty
+    if (tail == NULL) {
+        // Create a new node
+        Node* newNode = new Node(data);
+        // Point the new node to itself, making it circular
+        tail = newNode;
+        newNode->next = newNode;
+        return; // Exit the function
+    }
 
+    // The list is not empty, find the node with the given element
+    Node* current = tail;
+    while (current->data != element) {
+        current = current->next;
+    }
+
+    // After the element is found, current points to that node
+    // Create a new node with the given data
+    Node* temp = new Node(data);
+    // Insert the new node after the current node
+    temp->next = current->next;
+    current->next = temp;
+}
 ```
 
 
-
+### Deleting Node :
 ```c++
+void deleteNode(Node* &tail, int value) {
+    // Check if the list is empty
+    if (tail == NULL) {
+        cout << "List is Empty" << endl;
+        return; // Exit the function
+    }
 
+    // The list is not empty, proceed to delete the node
+    // Assuming that "value" is present in the circular linked list
+    Node* previous = tail;
+    Node* current = previous->next;
+
+    // Traverse the list to find the node with the given value
+    while (current->data != value) {
+        previous = current;
+        current = current->next;
+    }
+
+    // If the node to be deleted is the only node in the list
+    if (current == previous) {
+        tail = NULL;
+    }
+    // If the node to be deleted is the tail node
+    else if (current == tail) {
+        tail = previous; // Update the tail to the previous node
+    }
+
+    // Bypass the node to be deleted
+    previous->next = current->next;
+    
+    // Disconnect and delete the node
+    current->next = NULL;
+    delete current;
+}
 ```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
-
-```c++
-
-```
-
-
 
