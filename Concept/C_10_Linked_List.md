@@ -2,7 +2,7 @@
 * Linear data structure
 * Collection of node
 
-### 1. Single Linked List :
+## 1. Single Linked List :
 ![alt text](Img/singleLinkedList.png)
 * A singly linked list is a linear data structure where each element is a separate object called a node.
 * Each node contains two parts:
@@ -12,7 +12,7 @@
 * The last node in the list points to nullptr, indicating the end of the list.
 * The head pointer stores the address of the first node in the list.
 
-#### LikedList Creation :
+### LikedList Creation :
 ```c++
 class Node{
     public:
@@ -32,7 +32,7 @@ Node* n1 = new Node(10);
 ```
 
 
-#### Insertion at Head:
+### Insertion at Head:
 
 ```c++
 // Function to insert a node at the beginning (head)
@@ -50,7 +50,7 @@ void insertAtHead(Node*& head, int data) {
 ```
 
 
-#### Print Linked List :
+### Print Linked List :
 ```c++
 // Function to print the entire linked list
 void printLinkedList(Node* head) {
@@ -68,7 +68,7 @@ void printLinkedList(Node* head) {
 ```
 
 
-#### Insert At The Tail :
+### Insert At The Tail :
 ```c++
 void insertAtTail(Node* &tail, int data) {
     // Create a new node with the given data
@@ -86,7 +86,7 @@ void insertAtTail(Node* &tail, int data) {
 ```
 
 
-#### Insert At the Middle Position :
+### Insert At the Middle Position :
 ```c++
 void insertAtMiddle(Node* &head, int position, int data) {
     // Create a new node with the given data
@@ -113,7 +113,7 @@ void insertAtMiddle(Node* &head, int position, int data) {
 ```
 
 
-#### Insert at Any Position :
+### Insert at Any Position :
 ```c++
 // Function to insert a node at the beginning (head)
 // Passing head by reference so that the original head pointer can be updated
@@ -182,7 +182,7 @@ void insertAtMiddle(Node* &head, Node* &tail, int position, int data) {
 ```
 
 
-#### Deletion Linked List Node :
+### Deletion Linked List Node :
 
 ```c++
 class Node {
@@ -263,7 +263,7 @@ void deleteAtPosition(Node* &head, Node* &tail, int position) {
 
 
 
-### 2. Doubly Linked List :
+## 2. Doubly Linked List :
 ![alt text](Img/doublyLL.png)
 A Doubly Linked List is a data structure where each node contains three parts:
 
@@ -275,7 +275,7 @@ A Doubly Linked List is a data structure where each node contains three parts:
 * **Bidirectional Traversal**: Unlike a singly linked list, you can traverse both forward and backward through the list.
 * **Dynamic Size**: Nodes can be added or removed at any position dynamically.
 * **No Fixed Size**: The list grows and shrinks as needed, unlike arrays.
-#### Finding Linked List Length :
+### Finding Linked List Length :
 ```c++
 // Function to find the length of a linked list
 int linkedListLength(Node* head){
@@ -293,7 +293,7 @@ int linkedListLength(Node* head){
 ```
 
 
-#### Insert at Head in Dubly Linked List :
+### Insert at Head in Dubly Linked List :
 ```c++
 // Function to insert a new node at the head of a doubly linked list
 void insertAtHead(Node* &head, int data){
@@ -308,7 +308,7 @@ void insertAtHead(Node* &head, int data){
 ```
 
 
-#### Insert at Tail in Dubly Linked List :
+### Insert at Tail in Dubly Linked List :
 ```c++
 // Function to insert a new node at the tail of a doubly linked list
 void insertAtTail(Node* &tail, int data){
@@ -322,7 +322,7 @@ void insertAtTail(Node* &tail, int data){
 ```
 
 
-#### Insert at Any Position in Dubly Linked List :
+### Insert at Any Position in Dubly Linked List :
 ```c++
 // Function to insert a new node at a specific position in a doubly linked list
 void insertAtMiddle(Node* &head, Node* &tail, int position, int data){
@@ -360,7 +360,7 @@ void insertAtMiddle(Node* &head, Node* &tail, int position, int data){
 ```
 
 
-#### Delete any position in Dubly Linked List :
+### Delete any position in Dubly Linked List :
 
 
 
@@ -449,7 +449,7 @@ void deleteDublyLinkedList(Node* &head, int position) {
 ```
 
 
-### 3. Circular Linked List :
+## 3. Circular Linked List :
 ![alt text](Img/cricularLL.png)
 ```c++
 
