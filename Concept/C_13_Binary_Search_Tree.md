@@ -221,3 +221,144 @@ int main() {
     return 0;
 }
 ```
+
+
+## BST Add, Search, Delete
+```c++
+#include <iostream>
+using namespace std;
+
+// Node class definition for the BST
+class Node {
+    public:
+        int data;
+        Node* left;
+        Node* right;
+
+        // Constructor to create a new node
+        Node(int value) {
+            data = value;
+            left = right = NULL;
+        }
+};
+
+// Function to insert a node in the BST
+Node* add(Node* root, int value) {
+    // Base case: if the tree is empty, create a new node
+    if (root == NULL) {
+        return new Node(value);
+    }
+
+    // Recursively add the node to the left or right subtree
+    if (value < root->data) {
+        root->left = add(root->left, value);
+    } else if (value > root->data) {
+        root->right = add(root->right, value);
+    }
+
+    return root;  // Return the root node
+}
+
+// Function to search for a value in the BST
+bool search(Node* root, int value) {
+    // Base case: if the tree is empty or the value is found
+    if (root == NULL) {
+        return false;
+    }
+    if (root->data == value) {
+        return true;
+    }
+
+    // Recursively search in the left or right subtree
+    if (value < root->data) {
+        return search(root->left, value);
+    } else {
+        return search(root->right, value);
+    }
+}
+
+// Function to find the minimum value node in a subtree
+Node* findMin(Node* root) {
+    while (root && root->left != NULL) {
+        root = root->left;
+    }
+    return root;
+}
+
+// Function to delete a node from the BST
+Node* deleteNode(Node* root, int value) {
+    // Base case: if the tree is empty
+    if (root == NULL) {
+        return NULL;
+    }
+
+    // Recursively find the node to delete
+    if (value < root->data) {
+        root->left = deleteNode(root->left, value);
+    } else if (value > root->data) {
+        root->right = deleteNode(root->right, value);
+    } else {
+        // Node to be deleted found
+
+        // Case 1: Node with only one child or no child
+        if (root->left == NULL) {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        } else if (root->right == NULL) {
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+
+        // Case 2: Node with two children
+        Node* temp = findMin(root->right);  // Get the smallest value in the right subtree
+        root->data = temp->data;  // Replace the current node's value with the inorder successor
+        root->right = deleteNode(root->right, temp->data);  // Delete the inorder successor
+    }
+
+    return root;  // Return the modified root
+}
+
+// Inorder traversal to print the BST
+void inorder(Node* root) {
+    if (root != NULL) {
+        inorder(root->left);
+        cout << root->data << " ";
+        inorder(root->right);
+    }
+}
+
+int main() {
+    Node* root = NULL;
+
+    // Inserting nodes into the BST
+    root = add(root, 50);
+    root = add(root, 30);
+    root = add(root, 70);
+    root = add(root, 20);
+    root = add(root, 40);
+    root = add(root, 60);
+    root = add(root, 80);
+
+    cout << "Inorder traversal of BST: ";
+    inorder(root);
+    cout << endl;
+
+    // Searching for a value in the BST
+    int searchValue = 40;
+    if (search(root, searchValue)) {
+        cout << searchValue << " found in the BST." << endl;
+    } else {
+        cout << searchValue << " not found in the BST." << endl;
+    }
+
+    // Deleting a node from the BST
+    root = deleteNode(root, 70);
+    cout << "Inorder traversal after deleting 70: ";
+    inorder(root);
+    cout << endl;
+
+    return 0;
+}
+```
