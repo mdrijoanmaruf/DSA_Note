@@ -320,7 +320,25 @@ Node* deleteNode(Node* root, int value) {
     return root;  // Return the modified root
 }
 
-// Inorder traversal to print the BST
+// Preorder traversal (Root -> Left -> Right)
+void preorder(Node* root) {
+    if (root != NULL) {
+        cout << root->data << " ";
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+// Postorder traversal (Left -> Right -> Root)
+void postorder(Node* root) {
+    if (root != NULL) {
+        postorder(root->left);
+        postorder(root->right);
+        cout << root->data << " ";
+    }
+}
+
+// Inorder traversal (Left -> Root -> Right) to print the BST
 void inorder(Node* root) {
     if (root != NULL) {
         inorder(root->left);
@@ -343,6 +361,16 @@ int main() {
 
     cout << "Inorder traversal of BST: ";
     inorder(root);
+    cout << endl;
+
+    // Preorder traversal
+    cout << "Preorder traversal of BST: ";
+    preorder(root);
+    cout << endl;
+
+    // Postorder traversal
+    cout << "Postorder traversal of BST: ";
+    postorder(root);
     cout << endl;
 
     // Searching for a value in the BST
