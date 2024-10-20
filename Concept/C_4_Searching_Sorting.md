@@ -189,9 +189,11 @@ void insertionSort(vector<int>& arr, int n) {
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
             j = j - 1;
-        }
+        } 
         arr[j + 1] = key;
     }
 }
 ```
 
+### Merge Sort :
+![alt text](image-4.png)
