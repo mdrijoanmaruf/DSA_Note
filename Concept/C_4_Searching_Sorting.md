@@ -196,4 +196,3 @@ void insertionSort(vector<int>& arr, int n) {
 ```
 
 ### Merge Sort :
-![alt text](image-4.png)
