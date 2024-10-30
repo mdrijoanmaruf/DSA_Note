@@ -179,20 +179,124 @@ Insertion Sort is a simple sorting algorithm that builds the final sorted array 
 * Situations where simplicity is more important than performance
 
 ```c++
-// Function to perform insertion sort
-void insertionSort(vector<int>& arr, int n) {
-    for (int i = 1; i < n; i++) {
-        int key = arr[i];
-        int j = i - 1;
-        // Move elements of arr[0..i-1], that are greater than key,
-        // to one position ahead of their current position
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
+void insertionSort(int array[], int size) {
+    for (int i = 1; i < size; i++) {  // Loop starts from index 1 (2nd element)
+        int key = array[i];           // Set the key as the current element
+        int j = i - 1;                // Initialize j as the previous element index
+        
+        // Shift elements of array[0...i-1] that are greater than key, to one position ahead
+        while (j >= 0 && array[j] > key) { 
+            array[j + 1] = array[j];
             j = j - 1;
-        } 
-        arr[j + 1] = key;
+        }
+        array[j + 1] = key;           // Insert key at the correct position
     }
 }
 ```
 
 ### Merge Sort :
+Merge Sort is an efficient, stable, and comparison-based sorting algorithm that follows the divide and conquer paradigm. It divides the input array into two halves, recursively sorts them, and then merges the sorted halves back together. Merge Sort is particularly useful for large datasets.
+
+#### Merge Sort Time Complexity:
+* **Best Case: O(n log n)** - Even if the array is already sorted, merge sort will always divide the array and merge the sorted halves.
+* **Average Case: O(n log n)** - The time complexity remains consistent regardless of the initial order of elements.
+* **Worst Case: O(n log n)** - Merge sort consistently performs well, even in the worst-case scenario.
+
+#### Merge Sort Space Complexity:
+
+* **O(n)** - Merge sort requires additional space for temporary arrays to hold the divided halves during merging. The space used is proportional to the size of the input array.
+
+#### Merge Sort Use Case:
+
+* Large datasets
+* When stable sorting is required (maintaining the relative order of equal elements)
+* Linked lists (since it doesn’t require random access)
+* External sorting algorithms (sorting large files that don't fit into memory)
+
+```c++
+// Merge function to merge two halves
+void merge(int arr[], int left, int mid, int right) {
+    int n1 = mid - left + 1;     // Size of the left subarray
+    int n2 = right - mid;        // Size of the right subarray
+
+    // Create temporary arrays
+    int leftArr[n1], rightArr[n2];
+
+    // Copy data to temporary arrays
+    for (int i = 0; i < n1; i++)
+        leftArr[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        rightArr[j] = arr[mid + 1 + j];
+
+    // Merge the temporary arrays back into arr
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (leftArr[i] <= rightArr[j]) {
+            arr[k] = leftArr[i];
+            i++;
+        } else {
+            arr[k] = rightArr[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copy remaining elements of leftArr if any
+    while (i < n1) {
+        arr[k] = leftArr[i];
+        i++;
+        k++;
+    }
+
+    // Copy remaining elements of rightArr if any
+    while (j < n2) {
+        arr[k] = rightArr[j];
+        j++;
+        k++;
+    }
+}
+```
+
+```c++
+// Merge sort function to divide and sort the array
+void mergeSort(int arr[], int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+
+        // Recursively sort the two halves
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+
+        // Merge the sorted halves
+        merge(arr, left, mid, right);
+    }
+}
+```
+
+```c++
+
+```
+
+```c++
+
+```
+
+```c++
+
+```
+
+```c++
+
+```
+
+```c++
+
+```
+
+```c++
+
+```
+
+```c++
+
+```
