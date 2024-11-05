@@ -214,71 +214,126 @@ Merge Sort is an efficient, stable, and comparison-based sorting algorithm that 
 * External sorting algorithms (sorting large files that don't fit into memory)
 
 ```c++
-// Merge function to merge two halves
-void merge(int arr[], int left, int mid, int right) {
-    int n1 = mid - left + 1;     // Size of the left subarray
-    int n2 = right - mid;        // Size of the right subarray
 
-    // Create temporary arrays
-    int leftArr[n1], rightArr[n2];
+// Merge two sorted halves
+void merge(int *arr, int s, int e) {
+    int mid = (s + e) / 2;
 
-    // Copy data to temporary arrays
-    for (int i = 0; i < n1; i++)
-        leftArr[i] = arr[left + i];
-    for (int j = 0; j < n2; j++)
-        rightArr[j] = arr[mid + 1 + j];
+    int len1 = mid - s + 1;
+    int len2 = e - mid;
 
-    // Merge the temporary arrays back into arr
-    int i = 0, j = 0, k = left;
-    while (i < n1 && j < n2) {
-        if (leftArr[i] <= rightArr[j]) {
-            arr[k] = leftArr[i];
-            i++;
+    // Temp arrays for two halves
+    int *first = new int[len1];
+    int *second = new int[len2];
+
+    // Copy values to first half
+    int mainArrayIndex = s;
+    for(int i = 0; i < len1; i++) {
+        first[i] = arr[mainArrayIndex++];
+    }
+
+    // Copy values to second half
+    mainArrayIndex = mid + 1;
+    for(int i = 0; i < len2; i++) {
+        second[i] = arr[mainArrayIndex++];
+    }
+
+    // Merge two halves into main array
+    int index1 = 0, index2 = 0;
+    mainArrayIndex = s;
+    while(index1 < len1 && index2 < len2) {
+        if(first[index1] < second[index2]) {
+            arr[mainArrayIndex++] = first[index1++];
         } else {
-            arr[k] = rightArr[j];
-            j++;
+            arr[mainArrayIndex++] = second[index2++];
         }
-        k++;
     }
 
-    // Copy remaining elements of leftArr if any
-    while (i < n1) {
-        arr[k] = leftArr[i];
-        i++;
-        k++;
+    // Copy remaining elements
+    while(index1 < len1){
+        arr[mainArrayIndex++] = first[index1++];
+    } 
+    while(index2 < len2) {
+        arr[mainArrayIndex++] = second[index2++];
     }
 
-    // Copy remaining elements of rightArr if any
-    while (j < n2) {
-        arr[k] = rightArr[j];
-        j++;
-        k++;
-    }
+    delete[] first;
+    delete[] second;
 }
 ```
 
 ```c++
-// Merge sort function to divide and sort the array
-void mergeSort(int arr[], int left, int right) {
-    if (left < right) {
-        int mid = left + (right - left) / 2;
+// Merge sort function
+void mergeSort(int *arr, int s, int e) {
+    if(s >= e) return;  // Base case
 
-        // Recursively sort the two halves
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
+    int mid = (s + e) / 2;
+    mergeSort(arr, s, mid);       // Sort left part
+    mergeSort(arr, mid + 1, e);   // Sort right part
+    merge(arr, s, e);             // Merge sorted parts
+}
+```
 
-        // Merge the sorted halves
-        merge(arr, left, mid, right);
-    }
+
+### Quick Sort :
+Quick Sort is an efficient, in-place, comparison-based sorting algorithm that follows the divide and conquer paradigm. It selects a 'pivot' element from the array, partitions the other elements into two sub-arrays (one with elements less than the pivot and one with elements greater than the pivot), and then recursively sorts the sub-arrays. Quick Sort is often preferred for smaller, more localized datasets.
+
+#### Quick Sort Time Complexity:
+
+* **Best Case: O(n log n)** - When the pivot divides the array into two roughly equal halves at each step.
+* **Average Case: O(n log n)** - The time complexity remains consistent on average, even with an arbitrary pivot choice.
+* **Worst Case: O(n²)** - Occurs when the pivot consistently partitions the array into unbalanced sub-arrays (e.g., already sorted or reverse-sorted arrays without a median pivot).
+
+#### Quick Sort Space Complexity:
+
+* **O(log n)** - Quick Sort has a low memory overhead as it only requires a stack to hold recursive calls. It is an in-place sorting algorithm, so it does not require additional space for temporary arrays.
+
+#### Quick Sort Use Case:
+
+* When an in-place sorting algorithm is preferred (no extra memory required for temporary arrays)
+* Small to medium datasets
+* Situations where average-case performance is prioritized over worst-case performance
+* Arrays rather than linked lists, as linked lists lack efficient random access
+
+```c++
+// Quicksort function
+void quickSort(int arr[], int s, int e) {
+    if(s >= e) return;  // Base case
+
+    int p = partition(arr, s, e);  // Partition index
+    quickSort(arr, s, p - 1);  // Sort left part
+    quickSort(arr, p + 1, e);  // Sort right part
 }
 ```
 
 ```c++
+// Partition function for quicksort
+int partition(int arr[], int s, int e) {
+    int pivot = arr[s];  // Choose pivot
+    int cnt = 0;
 
-```
+    // Count elements <= pivot
+    for(int i = s + 1; i <= e; i++) {
+        if(arr[i] <= pivot) {
+            cnt++;
+        }
+    }
 
-```c++
+    int pivotIndex = s + cnt;  // Pivot's correct position
+    swap(arr[pivotIndex], arr[s]);
 
+    // Arrange elements around pivot
+    int i = s, j = e;
+    while(i < pivotIndex && j > pivotIndex) {
+        while(arr[i] <= pivot) i++;
+        while(arr[j] > pivot) j--;
+        if(i < pivotIndex && j > pivotIndex) {
+            swap(arr[i++], arr[j--]);
+        }
+    }
+
+    return pivotIndex;  // Return pivot position
+}
 ```
 
 ```c++
