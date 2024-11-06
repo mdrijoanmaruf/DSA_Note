@@ -336,22 +336,55 @@ int partition(int arr[], int s, int e) {
 }
 ```
 
+
+### Counting Sort :
+Counting Sort is a non-comparison-based sorting algorithm ideal for sorting integers within a specific range. It works by counting the occurrences of each unique element in the input array and then using this count to determine each element's position in the sorted array. Counting Sort is efficient with a time complexity of O(n + k), where n is the number of elements in the input array and k is the range of the input.
+
+#### Counting Sort Time Complexity:
+
+* **Best Case: O(n + k)** - Linear time complexity is achievable if the range of numbers (k) is not significantly larger than n.
+* **Average Case: O(n + k)** - The time complexity remains O(n + k) on average, as it depends on counting and array manipulation rather than comparisons.
+* **Worst Case: O(n + k)** - The time complexity will be O(n + k) even in the worst case, as it only requires scanning the input array and the count array.
+
+
+#### Counting Sort Space Complexity:
+
+* **O(n + k)** - Counting Sort requires additional space for storing the count of each unique element, resulting in an auxiliary array of size k.
+
+#### Counting Sort Use Case:
+
+* Situations where input elements have a limited range (e.g., integers within a small, known range).
+* Ideal for sorting integers or objects with integer keys.
+* Not suitable for floating-point numbers or data that requires comparisons.
+* Often used in situations where stability is required, as Counting Sort is stable.
 ```c++
+// Counting sort function
+void countingSort(int arr[], int n, int maxVal) {
+    // Create count array to store count of each element
+    int count[maxVal + 1] = {0};  
 
-```
+    // Store count of each element
+    for (int i = 0; i < n; i++) {
+        count[arr[i]]++;
+    }
 
-```c++
+    // Modify count array to store cumulative count
+    for (int i = 1; i <= maxVal; i++) {
+        count[i] += count[i - 1];
+    }
 
-```
+    // Output array to store sorted elements
+    int output[n];
 
-```c++
+    // Place elements in their correct position in output array
+    for (int i = n - 1; i >= 0; i--) {
+        output[count[arr[i]] - 1] = arr[i];
+        count[arr[i]]--;
+    }
 
-```
-
-```c++
-
-```
-
-```c++
-
+    // Copy sorted elements back to original array
+    for (int i = 0; i < n; i++) {
+        arr[i] = output[i];
+    }
+}
 ```
