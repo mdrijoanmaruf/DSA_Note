@@ -1,123 +1,41 @@
 #include <iostream>
 using namespace std;
 
-void merge(int *arr , int s , int e){
-    int mid = (s+e)/2;
-    int len1 = (mid - s) +  1;
-    int len2 = e - mid;
+void coinChange(int ammount , int denominations[] , int size){
+    int result[100];
+    int totalCoins = 0;
 
-    int *first = new int[len1];
-    int *second = new int[len2];
-
-    int mainArrayIndex = s;
-
-    for(int i = 0; i < len1; i++){
-        first[i] = arr[mainArrayIndex++];
-    }
-
-    mainArrayIndex = mid+1;
-    for(int i = 0; i < len2; i++){
-        second[i] = arr[mainArrayIndex++];
-    }
-
-    int index1 = 0, index2 = 0;
-    mainArrayIndex = s;
-
-    while(index1 < len1 && index2 < len2){
-        if(first[index1] < second[index2]){
-            arr[mainArrayIndex++] = first[index1++];
-        }
-        else{
-            arr[mainArrayIndex++] = second[index2++];
+    for(int i = 0; i < size ; i ++){
+        while(ammount >= denominations[i]){
+            ammount = ammount - denominations[i];
+            result[totalCoins] = denominations[i];
+            totalCoins++;
         }
     }
 
-    while(index1 < len1){
-        arr[mainArrayIndex++] = first[index1++];
+    // Output the result
+    if(ammount == 0){
+        cout << "The minimum number of coins is: " << totalCoins << endl;
+        cout << "The coins are: ";
+        for (int i = 0; i < totalCoins ; i ++){
+            cout << result[i] << " ";
+        }
+        cout << endl;
     }
-    while(index2 < len2){
-        arr[mainArrayIndex++] = second[index2++];
-    }
-
-    delete [] first;
-    delete [] second;
-} 
-
-void mergeSort(int *arr , int s , int e){
-    if(s < e){
-        int mid = (s+e)/2;
-
-        mergeSort(arr , s , mid);
-        mergeSort(arr , mid+1 , e);
-        merge(arr , s , e);
+    else {
+        cout << "It is not possible to make the change with the given denominations." << endl;
     }
 }
 
-int main() {
-    int arr[] = {32, 58, 73, 21, 94, 66, 49, 10, 37, 24, 
-                 52, 88, 76, 43, 59, 27, 39, 71, 85, 18, 
-                 99, 45, 91, 56, 67, 63, 82, 31, 28, 41, 
-                 15, 92, 20, 77, 36, 53, 14, 74, 5, 83, 
-                 9, 98, 61, 33, 46, 64, 25, 2, 97, 47, 
-                 55, 12, 42, 79, 23, 70, 86, 29, 19, 95, 
-                 35, 6, 68, 40, 17, 80, 11, 54, 7, 84, 
-                 60, 100, 30, 3, 51, 75, 48, 62, 22, 8, 
-                 69, 93, 1, 13, 16, 90, 4, 72, 26, 57, 
-                 65, 81, 50, 87, 44, 34, 96, 38, 78, 89,
-                 20, 59, 37, 85, 14, 66, 49, 90, 3, 13, 
-                 88, 19, 54, 33, 70, 26, 42, 98, 72, 65, 
-                 15, 91, 47, 1, 50, 68, 31, 97, 11, 4, 
-                 83, 6, 9, 75, 24, 60, 39, 32, 2, 93, 
-                 23, 61, 56, 35, 5, 18, 62, 44, 100, 82, 
-                 73, 55, 36, 92, 79, 51, 7, 12, 41, 17, 
-                 87, 9, 30, 27, 21, 74, 46, 81, 99, 58, 
-                 19, 63, 13, 47, 25, 3, 67, 31, 85, 69, 
-                 14, 89, 11, 20, 57, 77, 34, 4, 93, 52, 
-                 22, 64, 38, 96, 53, 80, 6, 95, 16, 42,
-                 28, 50, 26, 59, 71, 8, 49, 45, 86, 39, 
-                 40, 2, 78, 72, 66, 24, 84, 5, 29, 60, 
-                 1, 10, 75, 43, 48, 35, 76, 37, 54, 91,
-                 70, 58, 13, 92, 25, 61, 20, 89, 98, 73, 
-                 15, 82, 21, 46, 52, 79, 44, 33, 16, 28, 
-                 60, 14, 84, 40, 50, 8, 31, 69, 2, 81, 
-                 48, 62, 94, 18, 99, 35, 87, 7, 32, 47, 
-                 3, 67, 64, 26, 11, 30, 36, 74, 22, 9, 
-                 53, 55, 4, 93, 70, 5, 76, 56, 41, 12, 
-                 91, 29, 17, 80, 51, 43, 57, 38, 27, 23,
-                 68, 86, 1, 24, 59, 96, 10, 65, 88, 37,
-                 54, 75, 42, 33, 99, 19, 15, 2, 34, 64,
-                 26, 56, 92, 48, 43, 11, 23, 69, 95, 76,
-                 32, 60, 89, 10, 41, 8, 50, 71, 79, 22,
-                 36, 1, 91, 53, 70, 81, 18, 15, 73, 39,
-                 55, 88, 21, 47, 84, 58, 3, 67, 6, 99,
-                 40, 45, 92, 30, 9, 65, 13, 27, 78, 94,
-                 49, 57, 86, 35, 97, 66, 7, 25, 68, 31,
-                 20, 80, 4, 75, 54, 100, 93, 2, 38, 44,
-                 19, 61, 16, 82, 85, 5, 28, 72, 87, 12,
-                 90, 17, 42, 14, 29, 46, 24, 33, 59, 74,
-                 77, 37, 63, 12, 50, 90, 21, 68, 47, 84,
-                 16, 62, 95, 55, 73, 39, 6, 92, 78, 3,
-                 53, 41, 23, 8, 67, 88, 13, 44, 60, 31,
-                 25, 5, 98, 59, 79, 26, 100, 93, 72, 4,
-                 20, 87, 54, 32, 35, 11, 58, 49, 76, 69,
-                 28, 2, 97, 36, 45, 15, 66, 74, 9, 85,
-                 19, 83, 22, 43, 89, 1, 38, 40, 64, 56,
-                 17, 80, 99, 71, 48, 14, 27, 63, 91, 57,
-                 33, 10, 82, 42, 24, 65, 70, 51, 18, 46,
-                 34, 30, 7, 37, 55, 84, 13, 68, 25, 92,
-                 97, 9, 3, 86, 73, 53, 90, 1, 33, 62,
-                 16, 75, 50, 29, 60, 5, 95, 83, 28, 48,
-                 78, 20, 89, 7, 36, 41, 11, 100, 39, 70,
-                 18, 67, 80, 4, 77, 12, 96, 51, 47, 69};
+int main(){
+    int denominations[] = {1000, 500, 100, 50, 20, 10, 5, 2, 1};
+    int size = sizeof(denominations) / sizeof(denominations[0]);
 
-    int s = 0;
-    int e = sizeof(arr) / sizeof(arr[0]);
-    mergeSort(arr , s , e);
+    int ammount;
+    cout << "Enter the amount of money: ";
+    cin >> ammount;
 
-    for (int i = 0; i < e+1; i++)
-    {
-        cout << arr[i] <<" ";
-    }cout << endl;
+    coinChange(ammount, denominations, size);
     
     return 0;
 }
